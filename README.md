@@ -1,11 +1,4 @@
-# dotfiles_i3
-
->    __ __               __        ____        
->   / //_/__ ____ ____ _/ /____ __/ __/__ ____ 
->  / ,< / _ `/ _ `/ _ `/  '_/ // /\ \/ _ `/ _ \
-> /_/|_|\_,_/\_, /\_,_/_/\_\\_,_/___/\_,_/_//_/
->           /___/                              
-                                                                                
+# dotfiles_i3                                                  
 
 <h3>Result</h3>
 <img src="https://raw.githubusercontent.com/KagakuSan/dotfiles_i3/master/desktop.jpg" alt="desktop">
