@@ -1,0 +1,492 @@
+;#=============================================================;
+;
+;
+;   ██████╗  ██████╗ ██╗  ██╗   ██╗██████╗  █████╗ ██████╗
+;   ██╔══██╗██╔═══██╗██║  ╚██╗ ██╔╝██╔══██╗██╔══██╗██╔══██╗
+;   ██████╔╝██║   ██║██║   ╚████╔╝ ██████╔╝███████║██████╔╝
+;   ██╔═══╝ ██║   ██║██║    ╚██╔╝  ██╔══██╗██╔══██║██╔══██╗
+;   ██║     ╚██████╔╝███████╗██║   ██████╔╝██║  ██║██║  ██║
+;   ╚═╝      ╚═════╝ ╚══════╝╚═╝   ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝
+;
+;
+;=============================================================;
+
+;=====================================================
+;   colors
+;=====================================================
+[colors]
+#background = #DAA90D
+background = ${xrdb:solid-background}
+foreground = ${xrdb:highlight}
+foreground-alt = ${xrdb:color7:#222222}
+primary = ${xrdb:color1:#222222}
+secondary = ${xrdb:color2:#222222}
+alert = ${xrdb:red:#A70000}
+bi = #1e88e5
+be = #1e88e5
+bf = #43a047
+bn = #43a047
+bm = #fdd835
+bd = #e53935
+
+;=====================================================
+;   fonts
+;=====================================================
+[fonts]
+font-0 = "UbuntuMono Nerd Font:size=11:antialias=true;2"
+#font-0 = "Anime Ace 2.0 BB:size=8:antialias=true;2"
+font-1 = "Iosevka Term:size=18:antialias=true;2"
+font-2 = "icomoon\-feather:size=15;2"
+font-3 = "Ubuntu Condensed:size=12;2"
+
+;=====================================================
+;   global/wm
+;=====================================================
+[global/wm]
+enable-ipc = true
+
+;=====================================================
+;   bar/top
+;=====================================================
+[bar/top]
+monitor = ${env:MONITOR:eDP-1}
+width = 100%
+height = 15
+offset-x = 2%
+offset-y = 2%
+#bottom = true
+top = true
+fixed-center = false
+line-size = 2
+#border-top-size=3
+border-bottom-size=1
+foreground = ${colors.foreground}
+#background = #156566
+#border-color = #156566
+#background = #131C26
+background = #121318
+border-color = #000000
+
+font-0 = ${fonts.font-0}
+font-1 = ${fonts.font-1}
+font-2 = ${fonts.font-2}
+
+modules-left = mpd_bar i3 xwindow
+modules-center =
+modules-right = network fs mem batre light spiker date1 date2 gaps wifi
+
+;=====================================================
+;   module
+;=====================================================
+
+[module/icon]
+type = custom/text
+content-foreground = #FFFFFF
+#content-background =
+content = 
+content-padding = 1.5
+click-right = "rofi -modi drun -show drun -location 1 -columns 3 xoffset 0 -yoffset 50"
+click-left = ~/.config/polybar/module/launcher-full
+
+[module/xwindow]
+type = internal/xwindow
+#label = %title% %{B- -o -u}
+label = %title:0:50:...%  %{B- -o -u}
+label-maxlen = 10
+label-padding-left = 2
+label-padding-right = 1
+label-foreground = #FFFFFF
+#label-background = #FFFFFF
+
+[module/ewmh]
+type = internal/xworkspaces
+
+; Only show workspaces defined on the same output as the bar
+;
+; Useful if you want to show monitor specific workspaces
+; on different bars
+;
+; Default: false
+pin-workspaces = true
+
+; Create click handler used to focus desktop
+; Default: true
+enable-click = false
+
+; Create scroll handlers used to cycle desktops
+; Default: true
+enable-scroll = false
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+wrapping-scroll = true
+fuzzy-match = false
+strip-wsnumbers = true
+pin-workspaces = true
+reverse-scroll = false
+#content-padding = 1
+#content-background = ${colors.background}
+content-background =#285577
+label-focused = %icon%
+label-focused-foreground = #FFFFFF
+label-focused-background = #285577
+;label-focused-background = #00bd2c40
+label-focused-padding = 1
+enable-scroll = false
+
+;define name of workspace
+ws-icon-0 = 1;dev
+ws-icon-1 = 2;www
+ws-icon-2 = 3;sos
+ws-icon-3 = 4;game
+ws-icon-4 = 5;etc
+ws-icon-5 = 6;etc
+ws-icon-6 = 7;thu
+ws-icon-7 = 8;media
+ws-icon-8 = 9;doc
+ws-icon-9 = 10;st
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-foreground = #FFFFFF
+#label-unfocused-background = #FFFFFF
+#label-unfocused-background = #00bd2c40
+label-unfocused-padding = 1
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon%
+;label-visible-background = #02EE57
+label-visible-background = #FFFFFF
+label-visible-foreground = #201F1D
+label-visible-padding = 1
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon%
+label-urgent-background = ${colors.background}
+label-urgent-foreground = ${colors.secondary}
+label-urgent-padding = 1
+
+; ws-icon-[0-9]+ = label;icon
+; ; NOTE: The label needs to match the name of the i3 workspace
+;ws-icon-0 = 1; 
+;ws-icon-1 = 2; 
+;ws-icon-2 = 3; 
+;ws-icon-0 = 1;1
+;ws-icon-1 = 2;2
+;ws-icon-2 = 3;3
+
+; Separator in between workspaces
+ label-separator = |
+
+
+[module/mpd_bar]
+type = internal/mpd
+interval = 1
+#format-online = <icon-prev> <toggle> <icon-next>  <label-song> <bar-progress> <label-time>
+format-online = <icon-prev> <toggle> <icon-stop> <icon-next> <label-song>
+label-song =  "%title%"
+label-song-maxlen = 12
+label-song-ellipsis = true
+label-offline = "mpd is offline"
+format-online-foreground = #FFFFFF
+format-offline-foreground = #FFFFFF
+label-time-foreground = #FFFFFF
+#format-online-background = #FFFFFF
+#format-offline-background = #FFFFFF
+#label-time-background = #FFFFFF
+format-online-padding = 1
+icon-play = 
+icon-pause = 
+icon-stop = 
+icon-prev = 
+icon-next = 
+icon-seekb = 
+icon-seekf = 
+bar-progress-width = 10
+bar-progress-gradient = true
+bar-progress-indicator =
+bar-progress-indicator-foreground = #1e88e5
+bar-progress-indicator-font = 2
+bar-progress-fill = ━
+bar-progress-foreground-0 = #43a047
+bar-progress-foreground-1 = #43a047
+bar-progress-foreground-2 = #43a047
+bar-progress-foreground-3 = #fdd835
+bar-progress-foreground-4 = #fdd835
+bar-progress-foreground-5 = #fdd835
+bar-progress-foreground-6 = #e53935
+bar-progress-foreground-7 = #e53935
+bar-progress-foreground-8 = #e53935
+bar-progress-fill-font = 2
+bar-progress-empty = ┉
+bar-progress-empty-foreground = #1e88e5
+bar-progress-empty-font = 2
+
+;=====================================================
+;   module
+;=====================================================
+[module/sep]
+type = custom/text
+content-foreground = #201F1D
+content-background = #201F1D
+content = ""
+content-padding = 0
+
+[module/iwatch]
+type = custom/text
+content-foreground = #201F1D
+content-background = #676E6E
+content = 
+content-padding =2
+
+[module/date1]
+type = internal/date
+interval = 30
+content = 
+label =  %time%
+label-padding = 1
+label-foreground = #FFFFFF
+label-background = #201F1D
+time = %H:%M
+
+[module/date2]
+type = internal/date
+interval = 30
+label =  %time%
+#label-padding = 1
+label-foreground = #FFFFFF
+label-background = #201F1D
+time = %d-%m-%Y
+
+[module/wifi]
+type = custom/text
+content-foreground = #FFFFFF
+content-background = #131C26
+click-left = "networkmanager_dmenu >/dev/null 2>&1 &"
+content = 
+#content-padding =1
+
+[module/batre]
+type = internal/battery
+battery = BAT0
+adapter = ADP1
+full-at = 100
+format-charging = <animation-charging><label-charging>
+format-discharging = <ramp-capacity><label-discharging>
+label-charging-foreground= #FFFFFF
+label-charging-background= #201F1D
+label-charging-padding=1
+label-discharging-foreground= #FFFFFF
+label-discharging-background= #201F1D
+label-discharging-padding=1
+format-full-prefix = ""
+format-full-prefix-foreground = #FFFFFF
+format-full-prefix-background = #201F1D
+ramp-capacity-foreground = #FFFFFF
+ramp-capacity-background = #201F1D
+#ramp-capacity-padding = 1
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+#animation-charging-padding = 1
+animation-charging-foreground = #FFFFFF
+animation-charging-background = #201F1D
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-framerate = 750
+module-padding = 1
+
+[module/light]
+type = custom/script 
+exec = light -G | rev | cut -c 4- | rev
+format = <label>
+tail = false
+label = " %output%%"
+label-foreground = #FFFFFF
+
+[module/xbacklight]
+type = internal/xbacklight
+format = <ramp><label>
+ramp = 
+ramp-0 = 
+ramp-foreground = #FFFFFF
+ramp-background = #201F1D
+ramp-padding = 1
+label = %percentage%%
+label-foreground = #FFFFFF
+label-background = #201F1D
+#label-padding= 0.8
+
+[module/spiker]
+type = internal/pulseaudio
+sink = alsa_output.pci-0000_00_1b.0.analog-stereo
+format-volume = <ramp-volume><label-volume>
+#format-volume-padding = 1
+ramp-volume-padding = 1
+ramp-volume-foreground = #FFFFFF
+label-volume-foreground = #FFFFFF
+label-muted-foreground = #FFFFFF
+ramp-volume-background = #201F1D
+label-volume-background = #201F1D
+label-muted-background = #201F1D
+label-volume = %percentage%%
+label-muted = ""
+#label-volume-padding = 1
+label-muted-padding = 1
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+ramp-volume-3 = 
+ramp-volume-4 = 
+ramp-volume-5 = 
+ramp-volume-6 = 
+
+[module/mem]
+type = internal/memory
+; Seconds to sleep between updates
+; Default: 1
+interval = 3
+format = <label>
+#label =  %gb_used%/%gb_total%
+label =  %gb_used%
+label-padding=1
+label-foreground=#FFFFFF
+
+[module/pwr]
+type = custom/text
+content = 襤
+content-padding = 1
+#content-background = #
+content-foreground = #FFFFFF
+click-left = ~/.config/polybar/scripts/powermenu
+
+[module/gap]
+type = custom/text
+content = "  "
+
+[module/gaps]
+type = custom/text
+content = " "
+
+[module/wal]
+type = custom/text
+content = 
+content-padding = 2
+#content-background = #
+content-foreground = #FFFFFF
+click-left = "wal --theme random_dark"
+click-right = "wal --theme random_light"
+
+[module/thunar]
+type = custom/text
+content-foreground = #FFFFFF
+content-background = #201F1D
+click-left = "thunar >/dev/null 2>&1 &"
+content = 
+content-padding =1
+
+[module/libre]
+type = custom/text
+content-foreground = #FFFFFF
+content-background = #201F1D
+click-left = "libreoffice >/dev/null 2>&1 &"
+content = 
+content-padding =1
+
+[module/chrome]
+type = custom/text
+content-foreground = #FFFFFF
+content-background = #201F1D
+click-left = "google-chrome-stable >/dev/null 2>&1 &"
+content = 
+content-padding =1
+
+[module/ejek]
+type = custom/text
+content-foreground = #FFFFFF
+content-background = #201F1D
+click-left = ~/.config/polybar/scripts/udiskie
+content = 
+content-padding =1
+
+
+[module/fs]
+type = internal/fs
+; Mountpoints to display
+mount-0 = /
+; Seconds to sleep between updates
+; Default: 30
+interval = 10
+; Display fixed precision values
+; Default: false
+fixed-values = true
+; Spacing between entries
+; Default: 2
+spacing = 4
+label-mounted =  %free%
+label-padding=1
+label-mounted-foreground= #FFFFFF
+
+[module/pkg]
+type = custom/script
+exec = ~/.config/polybar/scripts/updates.sh
+format-foreground = #ffffff
+format-background = #131C26
+format-padding = 1
+tail = true
+
+[module/network]
+type = internal/network
+interface = wlp2s0
+interval = 1
+#udspeed-minwidth = 2
+accumulate-stats = true
+unknown-as-up = true
+
+format-connected = <label-connected>
+format-connected-foreground = #FFFFFF
+format-connected-padding = 1
+format-connected-prefix =
+
+format-disconnected = <label-disconnected>
+format-disconnected-foreground = #FFFFFF
+format-disconnected-padding = 1
+format-disconnected-prefix =
+
+label-font = 1
+#label-connected = " %downspeed:%"
+#label-disconnected = " dc"
+
+label-connected = "%downspeed:% %upspeed:%"
+label-disconnected = " -- KB/s  -- KB/s"
+
+[module/wlan]
+type = internal/network
+interface = wlp2s0
+interval = 1
+#udspeed-minwidth = 2
+accumulate-stats = true
+unknown-as-up = true
+
+format-connected = %{A1:connman-gtk:}<label-connected>%{A}
+format-connected-foreground = #FFFFFF
+format-connected-padding = 1
+format-connected-prefix =" "
+
+format-disconnected = %{A1:connman-gtk:}<label-disconnected>%{A}
+format-disconnected-foreground = #FFFFFF
+format-disconnected-padding = 1
+format-disconnected-prefix =" "
+
+label-font = 1
+
+label-connected = %essid%
+label-connected-maxlen = 15
+
+label-disconnected = offline
+
+
